@@ -1,14 +1,34 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+      "outDir": "./dist",
+      "baseUrl": ".",
+
+      "lib": ["ESNext"],
+      "types": ["node"],
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "declaration": true,
+      "inlineSourceMap": false,
+      "listEmittedFiles": false,
+      "listFiles": false,
+      "pretty": true,
+      "resolveJsonModule": true,
+      "skipLibCheck": true,
+      "traceResolution": false,
+
+      "strict": true,
+      "noFallthroughCasesInSwitch": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+
+      "paths": {
+          "@/*": ["./src/*"],
+      },
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["./src"],
+  "exclude": ["node_modules", "dist"]
 }
