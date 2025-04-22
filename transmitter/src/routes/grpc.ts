@@ -8,13 +8,13 @@ let retryCount = 0
 const MAX_RETRIES = 5
 
 export const setupGrpc = () => {
-  console.log('Starting gRPC setup...')
+  console.log('gRPC: Starting setup...')
   const RECEIVER_URL = process.env.RECEIVER_GRPC_URL || 'localhost:50052'
-  console.log('Connecting to receiver at:', RECEIVER_URL)
+  console.log('gRPC: Connecting to receiver at:', RECEIVER_URL)
   
   const connectWithRetry = () => {
     if (retryCount >= MAX_RETRIES) {
-      console.error('Max retries reached, giving up')
+      console.error('gRPC: Max retries reached, giving up')
       return
     }
 
@@ -24,12 +24,13 @@ export const setupGrpc = () => {
     )
 
     const stream = grpcClient.transferImages()
+    let startTime = 0
 
     stream.on('error', (error: Error) => {
-      console.error('Stream error:', error)
+      console.error('gRPC: Stream error:', error)
       if (error.message.includes('UNAVAILABLE')) {
         retryCount++
-        console.log(`Retrying connection in 5 seconds... (attempt ${retryCount})`)
+        console.log(`gRPC: Retrying connection in 5 seconds... (attempt ${retryCount})`)
         setTimeout(connectWithRetry, 5000)
       }
     })
@@ -40,29 +41,28 @@ export const setupGrpc = () => {
         const imageBuffer = await readFile(imagePath)
         
         for (let i = 1; i <= 10; i++) {
+          startTime = Date.now()
           const imageData: ImageData = {
-            timestamp: Date.now(),
+            timestamp: startTime,
             image: imageBuffer
           }
           
           stream.write(imageData)
-          console.log(`Sent image ${i}`)
-          await new Promise(resolve => setTimeout(resolve, 1000))
+          console.log(`gRPC: Sent image ${i}`)
         }
         
         stream.end()
       } catch (error) {
-        console.error('Error sending images:', error)
+        console.error('gRPC: Error sending images:', error)
         stream.destroy()
       }
     }
 
     stream.on('data', (ack: Ack) => {
-      console.log('Received ack:', ack)
     })
 
     stream.on('end', () => {
-      console.log('Stream ended')
+      console.log('gRPC: Stream ended')
     })
 
     sendImages()
@@ -76,5 +76,6 @@ export const closeGrpc = () => {
   if (grpcClient) {
     grpcClient.close()
     grpcClient = null
+    console.log('gRPC: Connection closed')
   }
 } 
