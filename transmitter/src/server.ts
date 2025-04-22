@@ -8,6 +8,8 @@ import { setupGrpc, closeGrpc } from './routes/grpc'
 config()
 
 const server = fastify()
+let wsFinished = false
+let grpcStarted = false
 
 server.register(fastifyCors, {
   origin: true,
@@ -26,7 +28,16 @@ server.get('/ping', async (request, reply) => {
   return 'pong\n'
 })
 
-server.register(setupWebSocket)
+server.register(async (fastify) => {
+  await setupWebSocket(fastify, () => {
+    console.log('WebSocket transfer completed, starting gRPC...')
+    wsFinished = true
+    if (!grpcStarted) {
+      grpcStarted = true
+      setupGrpc()
+    }
+  })
+})
 
 const WS_PORT = process.env.PORT || 8081
 
@@ -71,8 +82,6 @@ const start = async () => {
       host: '0.0.0.0'
     })
     console.log(`WebSocket server listening at http://localhost:${WS_PORT}`)
-
-    setupGrpc()
   } catch (err) {
     server.log.error(err)
     process.exit(1)

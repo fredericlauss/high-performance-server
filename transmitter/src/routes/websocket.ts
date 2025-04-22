@@ -2,9 +2,15 @@ import { FastifyInstance } from 'fastify'
 import { readFile } from 'fs/promises'
 import path from 'path'
 
-export const setupWebSocket = async (fastify: FastifyInstance) => {
+type OnCompleteCallback = () => void
+
+export const setupWebSocket = async (
+  fastify: FastifyInstance, 
+  onComplete?: OnCompleteCallback
+) => {
   fastify.get('/stream', { websocket: true }, (socket, req) => {
-    console.log('Client connected')
+    console.log('WebSocket: Client connected')
+    let imagesSent = 0
 
     const sendImages = async () => {
       try {
@@ -18,18 +24,25 @@ export const setupWebSocket = async (fastify: FastifyInstance) => {
             image: imageBuffer
           }
           socket.send(JSON.stringify(data))
-          console.log(`Image ${i} sent`)
+          console.log(`WebSocket: Image ${i + 1} sent`)
+          imagesSent++
           await new Promise(resolve => setTimeout(resolve, 1000))
         }
+        
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        onComplete?.()
       } catch (error) {
-        console.error('Error sending images:', error)
+        console.error('WebSocket: Error sending images:', error)
       }
     }
 
     sendImages()
 
     socket.on('close', () => {
-      console.log('Client disconnected')
+      console.log('WebSocket: Client disconnected')
+      if (imagesSent < 10) {
+        console.log('WebSocket: Transfer incomplete, not starting gRPC')
+      }
     })
   })
 } 
