@@ -3,6 +3,7 @@ import fastify from 'fastify'
 import websocket from '@fastify/websocket'
 import fastifyCors from '@fastify/cors'
 import { setupWebSocket } from './routes/websocket'
+import { setupGrpc, closeGrpc } from './routes/grpc'
 
 config()
 
@@ -27,6 +28,8 @@ server.get('/ping', async (request, reply) => {
 
 server.register(setupWebSocket)
 
+const WS_PORT = process.env.PORT || 8081
+
 const gracefulShutdown = async (signal: string) => {
   console.log(`\n${signal} received. Starting graceful shutdown...`)
   try {
@@ -36,6 +39,8 @@ const gracefulShutdown = async (signal: string) => {
         client.close(1000, 'Server shutting down')
       }
     }
+    
+    closeGrpc()
     
     await server.close()
     console.log('Server shut down successfully')
@@ -59,15 +64,15 @@ process.on('unhandledRejection', (reason, promise) => {
   gracefulShutdown('UNHANDLED_REJECTION')
 })
 
-const PORT = process.env.PORT || 8081
-
 const start = async () => {
   try {
     await server.listen({ 
-      port: parseInt(PORT.toString()), 
+      port: parseInt(WS_PORT.toString()), 
       host: '0.0.0.0'
     })
-    console.log(`Server listening at http://localhost:${PORT}`)
+    console.log(`WebSocket server listening at http://localhost:${WS_PORT}`)
+
+    setupGrpc()
   } catch (err) {
     server.log.error(err)
     process.exit(1)
