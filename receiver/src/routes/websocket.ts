@@ -17,7 +17,7 @@ export const setupWebSocket = () => {
     ws.on('open', async () => {
       console.log('WebSocket: Connection established with transmitter')
       startTime = Date.now()
-      await appendToLog('=== WebSocket Performance Test: 10 Images Transfer ===\n\n')
+      await appendToLog('=== WebSocket performance test: 10 images transfer ===\n\n')
     })
 
     ws.on('message', async (rawData) => {
@@ -32,7 +32,7 @@ export const setupWebSocket = () => {
         const outputPath = path.join(__dirname, '../../received/websocket', `image-${imageCount}.jpg`)
         
         await writeFile(outputPath, imageBuffer)
-        const logMessage = `Image ${imageCount} Transmission time: ${transmissionTime}ms\n`
+        const logMessage = `Image ${imageCount} transmission time: ${transmissionTime}ms\n`
         
         await appendToLog(logMessage)
         console.log(`WebSocket: ${logMessage}`)

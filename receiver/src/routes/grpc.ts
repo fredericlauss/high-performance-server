@@ -15,7 +15,7 @@ export const setupGrpc = async () => {
       let startTime = Date.now()
       let totalTransmissionTime = 0
       
-      await appendToLog('\n=== gRPC Performance Test: 10 Images Transfer ===\n\n')
+      await appendToLog('\n=== gRPC performance test: 10 images transfer ===\n\n')
       
       try {
         call.on('data', async (imageData: ImageData) => {
@@ -28,7 +28,7 @@ export const setupGrpc = async () => {
             const outputPath = path.join(__dirname, '../../received/grpc', `image-${imageData.timestamp}.jpg`)
             await writeFile(outputPath, imageData.image)
             
-            const logMessage = `Image ${imageCount} Transmission time: ${transmissionTime}ms\n`
+            const logMessage = `Image ${imageCount} transmission time: ${transmissionTime}ms\n`
             await appendToLog(logMessage)
             console.log(`gRPC: ${logMessage}`)
             

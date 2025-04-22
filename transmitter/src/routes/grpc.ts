@@ -64,8 +64,6 @@ export const setupGrpc = () => {
     }
 
     stream.on('data', (ack: Ack) => {
-      const transmissionTime = Date.now() - startTime
-      console.log(`gRPC: Received ack - size: ${ack.size} bytes, transmission time: ${transmissionTime}ms`)
     })
 
     stream.on('end', () => {
