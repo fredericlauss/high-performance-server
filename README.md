@@ -1,11 +1,19 @@
 # High performance server
 
-Simple WebSocket-based image transfer system.
+## Project Overview
+
+School project comparing WebSocket and gRPC performance in real-time image transfer.
+The application demonstrates real-time image transfer using both protocols to analyze their performance characteristics.
+
+### Objective
+Compare WebSocket and gRPC by:
+- Implementing image transfer using both technologies
+- Measuring and analyzing performance metrics
+- Documenting advantages and limitations of each approach
 
 ## Prerequisites
 
 - Docker
-- Docker Compose
 
 ## Setup
 
