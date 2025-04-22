@@ -18,7 +18,7 @@ server.get('/ping', async (request, reply) => {
 
 server.register(async function (fastify) {
   fastify.get('/stream', { websocket: true }, (socket, req) => {
-    console.log('Client connecté')
+    console.log('Client connected')
 
     const sendImages = async () => {
       try {
@@ -26,19 +26,24 @@ server.register(async function (fastify) {
         const imageBuffer = await readFile(imagePath)
         
         for (let i = 0; i < 10; i++) {
-          socket.send(imageBuffer)
-          console.log(`Image ${i} envoyée`)
+          const timestamp = Date.now()
+          const data = {
+            timestamp,
+            image: imageBuffer
+          }
+          socket.send(JSON.stringify(data))
+          console.log(`Image ${i} sent`)
           await new Promise(resolve => setTimeout(resolve, 1000))
         }
       } catch (error) {
-        console.error('Erreur lors de l\'envoi des images:', error)
+        console.error('Error sending images:', error)
       }
     }
 
     sendImages()
 
     socket.on('close', () => {
-      console.log('Client déconnecté')
+      console.log('Client disconnected')
     })
   })
 })

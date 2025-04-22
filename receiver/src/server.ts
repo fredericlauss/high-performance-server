@@ -18,9 +18,9 @@ async function cleanAndCreateWebsocketDir() {
   try {
     await rm(websocketDir, { recursive: true, force: true })
     await mkdir(websocketDir, { recursive: true })
-    console.log('Dossier websocket nettoyé et recréé')
+    console.log('Websocket directory cleaned and recreated')
   } catch (error) {
-    console.error('Erreur lors du nettoyage du dossier websocket:', error)
+    console.error('Error cleaning websocket directory:', error)
   }
 }
 
@@ -29,26 +29,36 @@ function connectToTransmitter() {
   let imageCount = 1
 
   ws.on('open', () => {
-    console.log('Connexion établie avec le transmitter')
+    console.log('Connection established with transmitter')
   })
 
-  ws.on('message', async (data: Buffer) => {
+  ws.on('message', async (rawData) => {
     try {
+      const receivedAt = Date.now()
+      const { timestamp, image } = JSON.parse(rawData.toString())
+      const imageBuffer = Buffer.from(image)
+      
+      const transmissionTime = receivedAt - timestamp
       const outputPath = path.join(__dirname, `../received/websocket/image-${imageCount}.jpg`)
-      await writeFile(outputPath, data)
-      console.log(`Image ${imageCount} reçue et sauvegardée`)
+      
+      await writeFile(outputPath, imageBuffer)
+      console.log(`Image ${imageCount} received and saved:`)
+      console.log(`  Sent at: ${new Date(timestamp).toISOString()}`)
+      console.log(`  Received at: ${new Date(receivedAt).toISOString()}`)
+      console.log(`  Transmission time: ${transmissionTime}ms`)
+      
       imageCount++
     } catch (error) {
-      console.error('Erreur lors de la réception de l\'image:', error)
+      console.error('Error receiving image:', error)
     }
   })
 
   ws.on('error', (error: Error) => {
-    console.error('Erreur de connexion WebSocket:', error)
+    console.error('WebSocket connection error:', error)
   })
 
   ws.on('close', () => {
-    console.log('Connexion WebSocket fermée, tentative de reconnexion dans 5 secondes...')
+    console.log('WebSocket connection closed, trying to reconnect in 5 seconds...')
     setTimeout(connectToTransmitter, 5000)
   })
 }
