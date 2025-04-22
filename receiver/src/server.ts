@@ -1,6 +1,6 @@
 import fastify from 'fastify'
 import websocket from '@fastify/websocket'
-import { writeFile } from 'fs/promises'
+import { writeFile, rm, mkdir } from 'fs/promises'
 import path from 'path'
 import WebSocket from 'ws'
 
@@ -13,9 +13,20 @@ server.register(websocket, {
   }
 })
 
+async function cleanAndCreateWebsocketDir() {
+  const websocketDir = path.join(__dirname, '../received/websocket')
+  try {
+    await rm(websocketDir, { recursive: true, force: true })
+    await mkdir(websocketDir, { recursive: true })
+    console.log('Dossier websocket nettoyé et recréé')
+  } catch (error) {
+    console.error('Erreur lors du nettoyage du dossier websocket:', error)
+  }
+}
+
 function connectToTransmitter() {
   const ws = new WebSocket('ws://localhost:8081/stream')
-  let imageCount = 0
+  let imageCount = 1
 
   ws.on('open', () => {
     console.log('Connexion établie avec le transmitter')
@@ -23,7 +34,7 @@ function connectToTransmitter() {
 
   ws.on('message', async (data: Buffer) => {
     try {
-      const outputPath = path.join(__dirname, `../received/image-${imageCount}.jpg`)
+      const outputPath = path.join(__dirname, `../received/websocket/image-${imageCount}.jpg`)
       await writeFile(outputPath, data)
       console.log(`Image ${imageCount} reçue et sauvegardée`)
       imageCount++
@@ -44,6 +55,7 @@ function connectToTransmitter() {
 
 const start = async () => {
   try {
+    await cleanAndCreateWebsocketDir()
     await server.listen({ port: 8080 })
     console.log('Server listening at http://localhost:8080')
     connectToTransmitter()
