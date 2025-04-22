@@ -44,9 +44,7 @@ function connectToTransmitter() {
       
       await writeFile(outputPath, imageBuffer)
       console.log(`Image ${imageCount} received and saved:`)
-      console.log(`  Sent at: ${new Date(timestamp).toISOString()}`)
-      console.log(`  Received at: ${new Date(receivedAt).toISOString()}`)
-      console.log(`  Transmission time: ${transmissionTime}ms`)
+      console.log(`  Sent at: ${new Date(timestamp).toISOString()} | Received at: ${new Date(receivedAt).toISOString()} | Transmission time: ${transmissionTime}ms`)
       
       imageCount++
     } catch (error) {
