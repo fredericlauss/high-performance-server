@@ -16,6 +16,11 @@ Simple WebSocket-based image transfer system.
 
 1. Run `docker compose up`
 
+The application will:
+- Start both services (transmitter and receiver)
+- Transfer 10 images via WebSocket
+- Log transmission times in `output.log`
+
 ## WebSocket 
 
 ### Performance Metrics
