@@ -5,37 +5,23 @@ services:
     container_name: websocket-transmitter
     build:
       context: ./transmitter
-      dockerfile: Dockerfile
-    env_file:
-      - ./transmitter/.env
+    environment:
+      - PORT=${TRANSMITTER_PORT}
     ports:
-      - "${TRANSMITTER_PORT}:8081"
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:8081/ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - "${TRANSMITTER_PORT}:${TRANSMITTER_PORT}"
     restart: unless-stopped
 
   receiver:
     container_name: websocket-receiver
     build:
       context: ./receiver
-      dockerfile: Dockerfile
-    env_file:
-      - ./receiver/.env
+    environment:
+      - PORT=${RECEIVER_PORT}
+      - TRANSMITTER_URL=ws://transmitter:${TRANSMITTER_PORT}/stream
     ports:
-      - "${RECEIVER_PORT}:8080"
-    volumes:
-      - received-images:/usr/src/app/received
+      - "${RECEIVER_PORT}:${RECEIVER_PORT}"
     depends_on:
-      transmitter:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:8080/ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - transmitter
     restart: unless-stopped
 
 volumes:
