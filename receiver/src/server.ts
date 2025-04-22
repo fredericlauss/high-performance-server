@@ -1,11 +1,21 @@
+import { config } from 'dotenv'
 import fastify from 'fastify'
 import websocket from '@fastify/websocket'
+import fastifyCors from '@fastify/cors'
 import { writeFile, rm, mkdir } from 'fs/promises'
 import path from 'path'
 import WebSocket from 'ws'
 
+config()
+
 const server = fastify()
 let ws: WebSocket | null = null
+
+server.register(fastifyCors, {
+  origin: true, 
+  methods: ['GET', 'POST'],
+  credentials: true
+})
 
 server.register(websocket, {
   options: {
@@ -25,8 +35,11 @@ async function cleanAndCreateWebsocketDir() {
   }
 }
 
+const PORT = process.env.PORT || 8080
+const TRANSMITTER_URL = process.env.TRANSMITTER_URL || 'ws://localhost:8081/stream'
+
 function connectToTransmitter() {
-  ws = new WebSocket('ws://localhost:8081/stream')
+  ws = new WebSocket(TRANSMITTER_URL)
   let imageCount = 1
 
   ws.on('open', () => {
@@ -96,8 +109,11 @@ process.on('unhandledRejection', (reason, promise) => {
 const start = async () => {
   try {
     await cleanAndCreateWebsocketDir()
-    await server.listen({ port: 8080 })
-    console.log('Server listening at http://localhost:8080')
+    await server.listen({ 
+      port: parseInt(PORT.toString()),
+      host: '0.0.0.0'
+    })
+    console.log(`Server listening at http://localhost:${PORT}`)
     connectToTransmitter()
   } catch (err) {
     server.log.error(err)

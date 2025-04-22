@@ -1,9 +1,19 @@
+import { config } from 'dotenv'
 import fastify from 'fastify'
 import websocket from '@fastify/websocket'
+import fastifyCors from '@fastify/cors'
 import { readFile } from 'fs/promises'
 import path from 'path'
 
+config()
+
 const server = fastify()
+
+server.register(fastifyCors, {
+  origin: true,
+  methods: ['GET', 'POST'],
+  credentials: true
+})
 
 server.register(websocket, {
   options: {
@@ -80,10 +90,15 @@ process.on('unhandledRejection', (reason, promise) => {
   gracefulShutdown('UNHANDLED_REJECTION')
 })
 
+const PORT = process.env.PORT || 8081
+
 const start = async () => {
   try {
-    await server.listen({ port: 8081 })
-    console.log('Server listening at http://localhost:8081')
+    await server.listen({ 
+      port: parseInt(PORT.toString()), 
+      host: '0.0.0.0'
+    })
+    console.log(`Server listening at http://localhost:${PORT}`)
   } catch (err) {
     server.log.error(err)
     process.exit(1)
