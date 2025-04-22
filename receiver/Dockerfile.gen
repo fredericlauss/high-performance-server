@@ -1,0 +1,16 @@
+FROM node:20-slim
+
+RUN apt-get update && apt-get install -y protobuf-compiler
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+RUN npm install -g ts-proto
+
+COPY src/proto ./src/proto
+
+VOLUME [ "/app" ]
+
+CMD ["npm", "run", "proto:gen"] 

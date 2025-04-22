@@ -1,12 +1,12 @@
 === WebSocket Performance Test: 10 Images Transfer ===
 
 Image 1 Transmission time: 51ms
-Image 2 Transmission time: 40ms
-Image 3 Transmission time: 35ms
+Image 2 Transmission time: 35ms
+Image 3 Transmission time: 39ms
 Image 4 Transmission time: 32ms
-Image 5 Transmission time: 34ms
+Image 5 Transmission time: 35ms
 Image 6 Transmission time: 34ms
-Image 7 Transmission time: 34ms
-Image 8 Transmission time: 31ms
-Image 9 Transmission time: 35ms
-Image 10 Transmission time: 39ms
+Image 7 Transmission time: 33ms
+Image 8 Transmission time: 35ms
+Image 9 Transmission time: 34ms
+Image 10 Transmission time: 33ms
