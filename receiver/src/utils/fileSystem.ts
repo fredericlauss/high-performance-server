@@ -18,8 +18,16 @@ export async function cleanAndCreateDirs() {
     
     console.log('Directories cleaned and recreated')
     
-    await writeFile('/app/output.log', '=== Performance Test: 10 Images Transfer ===\n\n', { flag: 'w' })
+    await writeFile('/app/output.log', '', { flag: 'w' })
   } catch (error) {
     console.error('Error cleaning directories:', error)
+  }
+}
+
+export async function appendToLog(message: string) {
+  try {
+    await writeFile('/app/output.log', message, { flag: 'a' })
+  } catch (error) {
+    console.error('Error writing to log:', error)
   }
 } 

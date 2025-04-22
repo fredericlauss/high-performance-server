@@ -3,6 +3,7 @@ import { writeFile } from 'fs/promises'
 import path from 'path'
 import { ImageTransferService } from '../proto/image_transfer'
 import type { ImageData, Ack } from '../proto/image_transfer'
+import { appendToLog } from '../utils/fileSystem'
 
 export const setupGrpc = async () => {
   const server = new grpc.Server()
@@ -11,6 +12,9 @@ export const setupGrpc = async () => {
     transferImages: async (call: grpc.ServerDuplexStream<ImageData, Ack>) => {
       console.log('gRPC: New transmitter connected')
       let imageCount = 0
+      let startTime = Date.now()
+      
+      await appendToLog('\n=== gRPC Performance Test: 10 Images Transfer ===\n\n')
       
       try {
         call.on('data', async (imageData: ImageData) => {
@@ -22,13 +26,22 @@ export const setupGrpc = async () => {
             const outputPath = path.join(__dirname, '../../received/grpc', `image-${imageData.timestamp}.jpg`)
             await writeFile(outputPath, imageData.image)
             
-            console.log(`gRPC: Image ${imageCount} Transmission time: ${transmissionTime}ms`)
+            const logMessage = `Image ${imageCount} Transmission time: ${transmissionTime}ms\n`
+            await appendToLog(logMessage)
+            console.log(`gRPC: ${logMessage}`)
             
             const ack: Ack = {
               size: imageData.image.length,
               error: 0
             }
             call.write(ack)
+
+            if (imageCount === 10) {
+              const totalTime = Date.now() - startTime
+              const totalMessage = `\nTotal transfer time: ${totalTime}ms\n\n`
+              await appendToLog(totalMessage)
+              console.log(`gRPC: ${totalMessage}`)
+            }
           } catch (error) {
             console.error('gRPC: Error processing image:', error)
             call.write({ size: 0, error: 1 })

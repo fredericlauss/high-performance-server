@@ -1,6 +1,7 @@
 import WebSocket from 'ws'
 import { writeFile } from 'fs/promises'
 import path from 'path'
+import { appendToLog } from '../utils/fileSystem'
 
 let ws: WebSocket | null = null
 
@@ -10,9 +11,12 @@ export const setupWebSocket = () => {
   function connectToTransmitter() {
     ws = new WebSocket(TRANSMITTER_URL)
     let imageCount = 1
+    let startTime = 0
 
-    ws.on('open', () => {
-      console.log('Connection established with transmitter')
+    ws.on('open', async () => {
+      console.log('WebSocket: Connection established with transmitter')
+      startTime = Date.now()
+      await appendToLog('=== WebSocket Performance Test: 10 Images Transfer ===\n\n')
     })
 
     ws.on('message', async (rawData) => {
@@ -27,21 +31,28 @@ export const setupWebSocket = () => {
         await writeFile(outputPath, imageBuffer)
         const logMessage = `Image ${imageCount} Transmission time: ${transmissionTime}ms\n`
         
-        await writeFile('/app/output.log', logMessage, { flag: 'a' })
-        console.log(logMessage)
+        await appendToLog(logMessage)
+        console.log(`WebSocket: ${logMessage}`)
+        
+        if (imageCount === 10) {
+          const totalTime = Date.now() - startTime
+          const totalMessage = `\nTotal transfer time: ${totalTime}ms\n\n`
+          await appendToLog(totalMessage)
+          console.log(`WebSocket: ${totalMessage}`)
+        }
         
         imageCount++
       } catch (error) {
-        console.error('Error receiving image:', error)
+        console.error('WebSocket: Error receiving image:', error)
       }
     })
 
     ws.on('error', (error: Error) => {
-      console.error('WebSocket connection error:', error)
+      console.error('WebSocket: Connection error:', error)
     })
 
     ws.on('close', () => {
-      console.log('WebSocket connection closed, trying to reconnect in 5 seconds...')
+      console.log('WebSocket: Connection closed, trying to reconnect in 5 seconds...')
       setTimeout(connectToTransmitter, 5000)
     })
   }
