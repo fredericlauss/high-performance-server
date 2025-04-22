@@ -48,6 +48,38 @@ server.register(async function (fastify) {
   })
 })
 
+const gracefulShutdown = async (signal: string) => {
+  console.log(`\n${signal} received. Starting graceful shutdown...`)
+  try {
+    const wsServer = server.websocketServer
+    if (wsServer) {
+      for (const client of wsServer.clients) {
+        client.close(1000, 'Server shutting down')
+      }
+    }
+    
+    await server.close()
+    console.log('Server shut down successfully')
+    process.exit(0)
+  } catch (err) {
+    console.error('Error during shutdown:', err)
+    process.exit(1)
+  }
+}
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'))
+process.on('SIGINT', () => gracefulShutdown('SIGINT'))
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught exception:', error)
+  gracefulShutdown('UNCAUGHT_EXCEPTION')
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled rejection at:', promise, 'reason:', reason)
+  gracefulShutdown('UNHANDLED_REJECTION')
+})
+
 const start = async () => {
   try {
     await server.listen({ port: 8081 })

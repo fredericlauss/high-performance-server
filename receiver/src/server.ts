@@ -5,6 +5,7 @@ import path from 'path'
 import WebSocket from 'ws'
 
 const server = fastify()
+let ws: WebSocket | null = null
 
 server.register(websocket, {
   options: {
@@ -25,7 +26,7 @@ async function cleanAndCreateWebsocketDir() {
 }
 
 function connectToTransmitter() {
-  const ws = new WebSocket('ws://localhost:8081/stream')
+  ws = new WebSocket('ws://localhost:8081/stream')
   let imageCount = 1
 
   ws.on('open', () => {
@@ -62,6 +63,37 @@ function connectToTransmitter() {
     setTimeout(connectToTransmitter, 5000)
   })
 }
+
+const gracefulShutdown = async (signal: string) => {
+  console.log(`\n${signal} received. Starting graceful shutdown...`)
+  try {
+    if (ws) {
+      ws.close(1000, 'Receiver shutting down')
+    }
+    
+    await cleanAndCreateWebsocketDir()
+    
+    await server.close()
+    console.log('Server shut down successfully')
+    process.exit(0)
+  } catch (err) {
+    console.error('Error during shutdown:', err)
+    process.exit(1)
+  }
+}
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'))
+process.on('SIGINT', () => gracefulShutdown('SIGINT'))
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught exception:', error)
+  gracefulShutdown('UNCAUGHT_EXCEPTION')
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled rejection at:', promise, 'reason:', reason)
+  gracefulShutdown('UNHANDLED_REJECTION')
+})
 
 const start = async () => {
   try {
