@@ -15,3 +15,14 @@ Simple WebSocket-based image transfer system.
 ## Usage
 
 1. Run `docker compose up`
+
+## WebSocket 
+
+### Performance Metrics
+
+Check `output.log` file for detailed performance metrics of the WebSocket image transfer:
+- Transmission time for each image
+
+### WebSocket Advantages
+- Real-time Updates
+- Simple Implementation
