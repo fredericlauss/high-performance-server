@@ -2,8 +2,7 @@ import { config } from 'dotenv'
 import fastify from 'fastify'
 import websocket from '@fastify/websocket'
 import fastifyCors from '@fastify/cors'
-import { readFile } from 'fs/promises'
-import path from 'path'
+import { setupWebSocket } from './routes/websocket'
 
 config()
 
@@ -26,37 +25,7 @@ server.get('/ping', async (request, reply) => {
   return 'pong\n'
 })
 
-server.register(async function (fastify) {
-  fastify.get('/stream', { websocket: true }, (socket, req) => {
-    console.log('Client connected')
-
-    const sendImages = async () => {
-      try {
-        const imagePath = path.join(__dirname, '../assets/image.png')
-        const imageBuffer = await readFile(imagePath)
-        
-        for (let i = 0; i < 10; i++) {
-          const timestamp = Date.now()
-          const data = {
-            timestamp,
-            image: imageBuffer
-          }
-          socket.send(JSON.stringify(data))
-          console.log(`Image ${i} sent`)
-          await new Promise(resolve => setTimeout(resolve, 1000))
-        }
-      } catch (error) {
-        console.error('Error sending images:', error)
-      }
-    }
-
-    sendImages()
-
-    socket.on('close', () => {
-      console.log('Client disconnected')
-    })
-  })
-})
+server.register(setupWebSocket)
 
 const gracefulShutdown = async (signal: string) => {
   console.log(`\n${signal} received. Starting graceful shutdown...`)
