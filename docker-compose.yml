@@ -18,6 +18,8 @@ services:
       - TRANSMITTER_URL=ws://transmitter:${TRANSMITTER_PORT}/stream
     ports:
       - "${RECEIVER_PORT}:${RECEIVER_PORT}"
+    volumes:
+      - ./output.log:/app/output.log
     depends_on:
       - transmitter
     restart: unless-stopped

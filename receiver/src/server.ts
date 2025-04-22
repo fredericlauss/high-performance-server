@@ -30,8 +30,10 @@ async function cleanAndCreateWebsocketDir() {
     await rm(websocketDir, { recursive: true, force: true })
     await mkdir(websocketDir, { recursive: true })
     console.log('Websocket directory cleaned and recreated')
+    
+    await writeFile('/app/output.log', '=== WebSocket Performance Test: 10 Images Transfer ===\n\n', { flag: 'w' })
   } catch (error) {
-    console.error('Error cleaning websocket directory:', error)
+    console.error('Error cleaning directories:', error)
   }
 }
 
@@ -56,8 +58,10 @@ function connectToTransmitter() {
       const outputPath = path.join(__dirname, `../received/websocket/image-${imageCount}.jpg`)
       
       await writeFile(outputPath, imageBuffer)
-      console.log(`Image ${imageCount} received and saved:`)
-      console.log(`  Sent at: ${new Date(timestamp).toISOString()} | Received at: ${new Date(receivedAt).toISOString()} | Transmission time: ${transmissionTime}ms`)
+      const logMessage = `Image ${imageCount} Transmission time: ${transmissionTime}ms\n`
+      
+      await writeFile('/app/output.log', logMessage, { flag: 'a' })
+      console.log(logMessage)
       
       imageCount++
     } catch (error) {
@@ -81,8 +85,6 @@ const gracefulShutdown = async (signal: string) => {
     if (ws) {
       ws.close(1000, 'Receiver shutting down')
     }
-    
-    await cleanAndCreateWebsocketDir()
     
     await server.close()
     console.log('Server shut down successfully')
