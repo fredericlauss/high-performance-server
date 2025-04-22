@@ -13,6 +13,7 @@ export const setupGrpc = async () => {
       console.log('gRPC: New transmitter connected')
       let imageCount = 0
       let startTime = Date.now()
+      let totalTransmissionTime = 0
       
       await appendToLog('\n=== gRPC Performance Test: 10 Images Transfer ===\n\n')
       
@@ -20,6 +21,7 @@ export const setupGrpc = async () => {
         call.on('data', async (imageData: ImageData) => {
           const receiveTime = Date.now()
           const transmissionTime = receiveTime - imageData.timestamp
+          totalTransmissionTime += transmissionTime
           imageCount++
           
           try {
@@ -38,7 +40,7 @@ export const setupGrpc = async () => {
 
             if (imageCount === 10) {
               const totalTime = Date.now() - startTime
-              const totalMessage = `\nTotal transfer time: ${totalTime}ms\n\n`
+              const totalMessage = `\nTotal transfer time (including 1s delays): ${totalTime}ms\nSum of transmission times: ${totalTransmissionTime}ms\n\n`
               await appendToLog(totalMessage)
               console.log(`gRPC: ${totalMessage}`)
             }
