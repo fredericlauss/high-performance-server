@@ -4,13 +4,17 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm ci --only=production
+RUN npm ci
 
 COPY . .
 
+RUN npm install -g typescript
+
 RUN npm run build
 
-RUN mkdir -p received/websocket && chown -R node:node received
+RUN npm ci --only=production
+
+RUN mkdir -p received/websocket received/grpc && chown -R node:node received
 
 USER node
 
