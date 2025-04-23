@@ -21,8 +21,14 @@ While this implementation intentionally maintains similar patterns for both prot
 2. Create a `.env` file in the root directory with the `.env.example` file
 3. (Optional) Run `npm install` inside each service directory
 
-### 2.3 Launch
-1. Run `docker compose up`
+### 2.3 Running the project
+```bash
+docker compose up
+```
+To run in detached mode:
+```bash
+docker compose up -d
+```
 
 ## 3. WebSocket
 ### 3.1 Advantages
@@ -56,7 +62,6 @@ While this implementation intentionally maintains similar patterns for both prot
 | Type safety            | ❌                      | ✅ Strongly typed             |
 | Browser compatibility  | ✅ Native                | ❌ Requires HTTP/2 + proxy    |
 | Ease of implementation | ✅ Simple                | ⚠️ More complex               |
-| Best suited for        | UI real-time apps       | microservices services  |
 
 ## 6. Recommended use cases
 
