@@ -1,6 +1,6 @@
 # High performance server
 
-## Project Overview
+## 1. Introduction
 
 School project comparing WebSocket and gRPC performance in real-time image transfer.
 The application demonstrates real-time image transfer using both protocols to analyze their performance characteristics.
@@ -11,17 +11,17 @@ Compare WebSocket and gRPC by:
 - Measuring and analyzing performance metrics
 - Documenting advantages and limitations of each approach
 
-## Prerequisites
-
+## 2. Getting started
+- **Requirements**:
 - Docker
 
-## Setup
 
+- **Installation**:
 1. Clone the repository
 2. Create a `.env` file in the root directory with the `.env.example` file
+3. (Optional) Run `npm install` inside each service directory
 
-## Usage
-
+- **Launch**:
 1. Run `docker compose up`
 
 The application will:
@@ -29,13 +29,22 @@ The application will:
 - Transfer 10 images via WebSocket
 - Log transmission times in `output.log`
 
-## WebSocket 
 
-### Performance Metrics
+## 3. WebSocket
+### 3.1 Principle
+### 3.2 Advantages
+### 3.3 Disadvantages
+### 3.4 Performance results
 
-Check `output.log` file for detailed performance metrics of the WebSocket image transfer:
-- Transmission time for each image
+## 4. gRPC
+### 4.1 Principle
+### 4.2 Advantages
+### 4.3 Disadvantages
+### 4.4 Performance results
 
-### WebSocket Advantages
-- Real-time Updates
-- Simple Implementation
+## 5. Comparative summary
+
+## 6. Recommended use cases
+
+## 7. Conclusion
+(references)
