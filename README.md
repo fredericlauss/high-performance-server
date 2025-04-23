@@ -32,16 +32,38 @@ The application will:
 ## 3. WebSocket
 ### 3.1 Principle
 ### 3.2 Advantages
+- Bidirectional real-time communication  
+- Persistent open connection  
+- Lightweight and easy to implement  
+- Flexible payloads (text, JSON, binary blobs)
 ### 3.3 Disadvantages
+- May be blocked  
+- Less efficient for binary compared to gRPC  
+- No built-in type safety (no enforced schema)
 ### 3.4 Performance results
 
 ## 4. gRPC
 ### 4.1 Principle
 ### 4.2 Advantages
+- High performance 
+- Strongly typed contract via proto definitions  
+- Full-duplex streaming supported  
 ### 4.3 Disadvantages
+- Binary format harder to debug 
+- More complex to implement  
+- Requires HTTP/2, not natively supported in browsers without a proxy server
 ### 4.4 Performance results
 
 ## 5. Comparative summary
+
+| Criterion               | WebSocket               | gRPC                          |
+|------------------------|-------------------------|-------------------------------|
+| Real-time bidirectional| ✅                      | ✅                            |
+| Performance            | ⚠️ Medium               | ✅ Excellent        |
+| Type safety            | ❌                      | ✅ Strongly typed             |
+| Browser compatibility  | ✅ Native                | ❌ Requires HTTP/2 + proxy    |
+| Ease of implementation | ✅ Simple                | ⚠️ More complex               |
+| Best suited for        | UI real-time apps       | microservices services  |
 
 ## 6. Recommended use cases
 
