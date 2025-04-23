@@ -12,16 +12,15 @@ Compare WebSocket and gRPC by:
 - Documenting advantages and limitations of each approach
 
 ## 2. Getting started
-- **Requirements**:
+### 2.1 Requirements
 - Docker
 
-
-- **Installation**:
+### 2.2 Installation
 1. Clone the repository
 2. Create a `.env` file in the root directory with the `.env.example` file
 3. (Optional) Run `npm install` inside each service directory
 
-- **Launch**:
+### 2.3 Launch
 1. Run `docker compose up`
 
 The application will:
