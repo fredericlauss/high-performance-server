@@ -2,10 +2,10 @@
 
 ## 1. Introduction
 
-School project comparing WebSocket and gRPC performance in real-time image transfer.
+School project comparing WebSocket and gRPC performances.
 The application demonstrates real-time image transfer using both protocols to analyze their performance characteristics.
 
-### Objective
+**Objective**
 Compare WebSocket and gRPC by:
 - Implementing image transfer using both technologies
 - Measuring and analyzing performance metrics
@@ -25,34 +25,32 @@ Compare WebSocket and gRPC by:
 
 The application will:
 - Start both services (transmitter and receiver)
-- Transfer 10 images via WebSocket
+- Transfer 10 images via WebSocket and after 10 images via gRPC
 - Log transmission times in `output.log`
 
 
 ## 3. WebSocket
-### 3.1 Principle
-### 3.2 Advantages
+### 3.1 Advantages
 - Bidirectional real-time communication  
 - Persistent open connection  
 - Lightweight and easy to implement  
 - Flexible payloads (text, JSON, binary blobs)
-### 3.3 Disadvantages
+### 3.2 Disadvantages
 - May be blocked  
 - Less efficient for binary compared to gRPC  
 - No built-in type safety (no enforced schema)
-### 3.4 Performance results
+### 3.3 Performance results
 
 ## 4. gRPC
-### 4.1 Principle
-### 4.2 Advantages
+### 4.1 Advantages
 - High performance 
 - Strongly typed contract via proto definitions  
 - Full-duplex streaming supported  
-### 4.3 Disadvantages
+### 4.2 Disadvantages
 - Binary format harder to debug 
 - More complex to implement  
 - Requires HTTP/2, not natively supported in browsers without a proxy server
-### 4.4 Performance results
+### 4.3 Performance results
 
 ## 5. Comparative summary
 
@@ -68,4 +66,4 @@ The application will:
 ## 6. Recommended use cases
 
 ## 7. Conclusion
-(references)
+(references, ressources)
