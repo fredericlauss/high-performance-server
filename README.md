@@ -2,14 +2,15 @@
 
 ## 1. Introduction
 
-School project comparing WebSocket and gRPC performances.
-The application demonstrates real-time image transfer using both protocols to analyze their performance characteristics.
+This project explores the differences between websocket and gRPC through a practical implementation. The system consists of two servers: a transmitter and a receiver.
 
-**Objective**
-Compare WebSocket and gRPC by:
-- Implementing image transfer using both technologies
-- Measuring and analyzing performance metrics
-- Documenting advantages and limitations of each approach
+The transmitter server sends the same image ten times to the receiver, first using websocket protocol, then using gRPC. The receiver processes these images and captures performance metrics for each protocol.
+
+To ensure a fair comparison between both protocols, each image transmission includes a one-second delay, creating a controlled environment for performance measurement.
+
+For both websocket and gRPC, it measures three key metrics: the transmission time for each image, the total transfer time including the artificial delays, and the cumulative transmission time of all images.
+
+While this implementation intentionally maintains similar patterns for both protocols to ensure testing fairness, i acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either websocket or gRPC.
 
 ## 2. Getting started
 ### 2.1 Requirements
@@ -22,12 +23,6 @@ Compare WebSocket and gRPC by:
 
 ### 2.3 Launch
 1. Run `docker compose up`
-
-The application will:
-- Start both services (transmitter and receiver)
-- Transfer 10 images via WebSocket and after 10 images via gRPC
-- Log transmission times in `output.log`
-
 
 ## 3. WebSocket
 ### 3.1 Advantages
@@ -54,7 +49,7 @@ The application will:
 
 ## 5. Comparative summary
 
-| Criterion               | WebSocket               | gRPC                          |
+| Criterion               | websocket               | gRPC                          |
 |------------------------|-------------------------|-------------------------------|
 | Real-time bidirectional| ✅                      | ✅                            |
 | Performance            | ⚠️ Medium               | ✅ Excellent        |
