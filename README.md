@@ -42,7 +42,6 @@ docker compose up
 ## 3. WebSocket
 ### Advantages
 - Bidirectional real-time communication  
-- Persistent open connection  
 - Lightweight and easy to implement  
 - Flexible payloads (text, JSON, binary blobs)
 ### Disadvantages
@@ -71,7 +70,7 @@ Sum of transmission times: 373ms
 ## 4. gRPC
 ### Advantages
 - High performance 
-- Strongly typed contract via proto definitions  
+- Strongly typed contract 
 - Full-duplex streaming supported  
 ### Disadvantages
 - Binary format harder to debug 
@@ -106,7 +105,15 @@ Sum of transmission times: 69ms
 | Browser compatibility  | ✅ Native                | ❌ Requires HTTP/2 + proxy    |
 | Ease of implementation | ✅ Simple                | ⚠️ More complex               |
 
-## 6. Recommended use cases
+## 6. Conclusion and Recommended Use Cases
+
+The performance results show that gRPC is more efficient in raw data transmission. However, this advantage shouldn't drive alone the choice between these protocols, as each serves distinct purposes :
+
+WebSocket are good for web-based real-time applications. Its simple implementation and broad browser support make it ideal for direct real-time client-server communication.
+usecases : live chat applications, collaborative editing tools, or real-time dashboards
+
+gRPC is better suited for system-to-system communications. Its strict contract-based interactions and high performance make it valuable for backend services.
+usecases: microservices architectures, internal system communications, and scenarios requiring strict contract-based interactions
 
 ## 7. Resources
 
