@@ -2,15 +2,15 @@
 
 ## 1. What's this project about ?
 
-This project explores the differences between websocket and gRPC through a practical implementation. The system consists of two servers: a transmitter and a receiver.
-
-The transmitter server sends the same image ten times to the receiver, first using websocket protocol, then using gRPC. The receiver processes these images and captures performance metrics for each protocol.
+This project explores the differences between websocket and gRPC through a practical implementation. The system consists of two servers: a transmitter and a receiver. The transmitter server sends the same image ten times to the receiver, first using websocket protocol, then using gRPC. The receiver processes these images and captures performance metrics for each protocol.
 
 To ensure a fair comparison between both protocols, each image transmission includes a one-second delay, creating a controlled environment for performance measurement.
 
 For both websocket and gRPC, it measures three key metrics: the transmission time for each image, the total transfer time including the artificial delays, and the cumulative transmission time of all images.
 
-While this implementation intentionally maintains similar patterns for both protocols to ensure testing fairness, i acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either websocket or gRPC.
+
+> [!NOTE]
+> While this implementation intentionally maintains similar patterns for both protocols to ensure testing fairness, we acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either WebSocket or gRPC.
 
 ## 2. Getting started
 ### Technologies
