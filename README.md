@@ -13,6 +13,14 @@ For both websocket and gRPC, it measures three key metrics: the transmission tim
 While this implementation intentionally maintains similar patterns for both protocols to ensure testing fairness, i acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either websocket or gRPC.
 
 ## 2. Getting started
+### Technologies
+[Node.js](https://nodejs.org/),
+[Typescript](https://www.typescriptlang.org/),
+[Fastify](https://www.fastify.io/),
+[gRPC](https://grpc.io/),
+[WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API),
+[Docker](https://www.docker.com/)
+
 ### Requirements
 - Docker
 
@@ -30,14 +38,6 @@ npm install
 ```bash
 docker compose up
 ```
-### Technologies
-- [Node.js](https://nodejs.org/)
-- [Typescript](https://www.typescriptlang.org/)
-- [Fastify](https://www.fastify.io/)
-- [gRPC](https://grpc.io/)
-- [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-- [Docker](https://www.docker.com/)
-
 
 ## 3. WebSocket
 ### Advantages
