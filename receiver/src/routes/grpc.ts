@@ -13,7 +13,6 @@ export const setupGrpc = async () => {
       console.log('gRPC: New transmitter connected')
       let imageCount = 0
       let startTime = 0
-      let totalTransmissionTime = 0
             
       try {
         call.on('data', async (imageData: ImageData) => {
@@ -24,16 +23,13 @@ export const setupGrpc = async () => {
           
           const receiveTime = Date.now()
           const transmissionTime = receiveTime - imageData.timestamp
-          totalTransmissionTime += transmissionTime
           imageCount++
           
           try {
             const outputPath = path.join(__dirname, '../../received/grpc', `image-${imageCount}.jpg`)
             await writeFile(outputPath, imageData.image)
             
-            const logMessage = `Image ${imageCount} transmission time: ${transmissionTime}ms\n`
-            appendToLog(logMessage)
-            console.log(`gRPC: ${logMessage}`)
+            appendToLog(`Image transmission time: ${transmissionTime}ms\n`)
             
             const ack: Ack = {
               size: imageData.image.length,
@@ -44,7 +40,7 @@ export const setupGrpc = async () => {
             if (imageCount === 10) {
               setTimeout(() => {
                 const totalTime = Date.now() - startTime
-                const totalMessage = `\nTotal transfer time: ${totalTime}ms\nSum of transmission times: ${totalTransmissionTime}ms\n\n`
+                const totalMessage = `\nTotal transfer time: ${totalTime}ms\n\n`
                 appendToLog(totalMessage)
                 console.log(`gRPC: ${totalMessage}`)
               }, 100)

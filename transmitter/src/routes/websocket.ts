@@ -11,13 +11,10 @@ export const setupWebSocket = async (
   fastify.get('/stream', { websocket: true }, (socket, req) => {
     console.log('WebSocket: Client connected')
     let imagesSent = 0
-    let globalStartTime = 0
-
     const sendImages = async () => {
       try {
         const imagePath = path.join(__dirname, '../../assets/image.png')
         const imageBuffer = await readFile(imagePath)
-        globalStartTime = Date.now()
         
         for (let i = 0; i < 10; i++) {
           const timestamp = Date.now()
@@ -28,11 +25,7 @@ export const setupWebSocket = async (
           socket.send(JSON.stringify(data))
           console.log(`WebSocket: Image ${i + 1} sent`)
           imagesSent++
-        }
-        
-        const totalTime = Date.now() - globalStartTime
-        console.log(`WebSocket: All images sent. Total time: ${totalTime}ms`)
-        
+        }        
         await new Promise(resolve => setTimeout(resolve, 2000))
         onComplete?.()
       } catch (error) {

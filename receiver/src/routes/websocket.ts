@@ -12,12 +12,11 @@ export const setupWebSocket = () => {
     ws = new WebSocket(TRANSMITTER_URL)
     let imageCount = 0
     let startTime = 0
-    let totalTransmissionTime = 0
 
     ws.on('open', async () => {
       console.log('WebSocket: Connection established with transmitter')
       startTime = Date.now()
-      await appendToLog('=== WebSocket performance test: 10 images transfer ===\n\n')
+      appendToLog('=== WebSocket performance test: 10 images transfer ===\n\n')
     })
 
     ws.on('message', async (rawData) => {
@@ -27,23 +26,19 @@ export const setupWebSocket = () => {
         const imageBuffer = Buffer.from(image)
         
         const transmissionTime = receivedAt - timestamp
-        totalTransmissionTime += transmissionTime
-        
+                
         const outputPath = path.join(__dirname, '../../received/websocket', `image-${imageCount}.jpg`)
         
         await writeFile(outputPath, imageBuffer)
-        const logMessage = `Image ${imageCount + 1} transmission time: ${transmissionTime}ms\n`
-        
-        appendToLog(logMessage)
-        console.log(`WebSocket: ${logMessage}`)
-        
+        appendToLog(`Image transmission time: ${transmissionTime}ms\n`)
         imageCount++;
         
         if (imageCount === 10) {
           const totalTime = Date.now() - startTime
-          const totalMessage = `\nTotal transfer time: ${totalTime}ms\nSum of transmission times: ${totalTransmissionTime}ms\n\n`
+          const totalMessage = `\nTotal transfer time: ${totalTime}ms\n\n`
           appendToLog(totalMessage)
           console.log(`WebSocket: ${totalMessage}`)
+          // ws.close();
         }
       } catch (error) {
         console.error('WebSocket: Error receiving image:', error)

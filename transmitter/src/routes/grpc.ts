@@ -25,7 +25,6 @@ export const setupGrpc = () => {
 
     const stream = grpcClient.transferImages()
     let startTime = 0
-    let globalStartTime = 0
 
     stream.on('error', (error: Error) => {
       console.error('gRPC: Stream error:', error)
@@ -40,7 +39,6 @@ export const setupGrpc = () => {
       try {
         const imagePath = path.join(__dirname, '../../assets/image.png')
         const imageBuffer = await readFile(imagePath)
-        globalStartTime = Date.now()
         
         for (let i = 1; i <= 10; i++) {
           startTime = Date.now()
@@ -52,9 +50,6 @@ export const setupGrpc = () => {
           stream.write(imageData)
           console.log(`gRPC: Sent image ${i}`)
         }
-        
-        const totalTime = Date.now() - globalStartTime
-        console.log(`gRPC: All images sent. Total time: ${totalTime}ms`)
         stream.end()
       } catch (error) {
         console.error('gRPC: Error sending images:', error)
