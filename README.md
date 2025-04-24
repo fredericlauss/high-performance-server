@@ -4,8 +4,6 @@
 
 This project explores the differences between websocket and gRPC through a practical implementation. The system consists of two servers: a transmitter and a receiver. The transmitter server sends the same image ten times to the receiver, first using websocket protocol, then using gRPC. The receiver processes these images and captures performance metrics for each protocol.
 
-To ensure a fair comparison between both protocols, each image transmission includes a one-second delay, creating a controlled environment for performance measurement.
-
 For both websocket and gRPC, it measures three key metrics: the transmission time for each image, the total transfer time including the artificial delays, and the cumulative transmission time of all images.
 
 
@@ -52,19 +50,19 @@ docker compose up
 ```bash
 === WebSocket performance test: 10 images transfer ===
 
-Image 1 transmission time: 47ms
-Image 2 transmission time: 41ms
-Image 3 transmission time: 35ms
-Image 4 transmission time: 34ms
-Image 5 transmission time: 32ms
-Image 6 transmission time: 36ms
-Image 7 transmission time: 32ms
-Image 8 transmission time: 36ms
-Image 9 transmission time: 39ms
-Image 10 transmission time: 41ms
+Image 0 transmission time: 670ms
+Image 1 transmission time: 699ms
+Image 2 transmission time: 688ms
+Image 3 transmission time: 660ms
+Image 4 transmission time: 629ms
+Image 5 transmission time: 595ms
+Image 6 transmission time: 554ms
+Image 7 transmission time: 519ms
+Image 8 transmission time: 501ms
+Image 9 transmission time: 491ms
 
-Total transfer time (including 1s delays): 9384ms
-Sum of transmission times: 373ms
+Total transfer time: 1116ms
+Sum of transmission times: 6006ms
 ```
 
 ## 4. gRPC
@@ -77,24 +75,22 @@ Sum of transmission times: 373ms
 - More complex to implement  
 - Requires HTTP/2, not natively supported in browsers without a proxy server
 ### Performance results
-> [!WARNING]
-> The one-second delay between transfers provides precise measurements for a single image transfer and a clearer live log readability, but doesn't showcase gRPC's parallel streaming capabilities.
 ```bash
 === gRPC performance test: 10 images transfer ===
 
-Image 1 transmission time: 14ms
-Image 2 transmission time: 7ms
-Image 3 transmission time: 5ms
-Image 4 transmission time: 6ms
-Image 5 transmission time: 6ms
-Image 6 transmission time: 7ms
-Image 7 transmission time: 5ms
-Image 8 transmission time: 7ms
-Image 9 transmission time: 5ms
-Image 10 transmission time: 7ms
+Image 1 transmission time: 23ms
+Image 2 transmission time: 44ms
+Image 3 transmission time: 55ms
+Image 4 transmission time: 66ms
+Image 5 transmission time: 78ms
+Image 6 transmission time: 87ms
+Image 7 transmission time: 99ms
+Image 8 transmission time: 111ms
+Image 9 transmission time: 125ms
+Image 10 transmission time: 138ms
 
-Total transfer time (including 1s delays): 9024ms
-Sum of transmission times: 69ms
+Total transfer time: 228ms
+Sum of transmission times: 826ms
 ```
 
 ## 5. Comparative summary
