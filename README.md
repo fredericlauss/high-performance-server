@@ -78,7 +78,7 @@ Sum of transmission times: 373ms
 - Requires HTTP/2, not natively supported in browsers without a proxy server
 ### Performance results
 > [!WARNING]
-> The one-second delay between transfers provides precise measurements for a single image transfer, but doesn't showcase gRPC's parallel streaming capabilities.
+> The one-second delay between transfers provides precise measurements for a single image transfer and a clearer live log readability, but doesn't showcase gRPC's parallel streaming capabilities.
 ```bash
 === gRPC performance test: 10 images transfer ===
 
