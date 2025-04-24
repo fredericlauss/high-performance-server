@@ -10,7 +10,7 @@ export const setupWebSocket = () => {
   
   function connectToTransmitter() {
     ws = new WebSocket(TRANSMITTER_URL)
-    let imageCount = 1
+    let imageCount = 0
     let startTime = 0
     let totalTransmissionTime = 0
 
@@ -34,17 +34,17 @@ export const setupWebSocket = () => {
         await writeFile(outputPath, imageBuffer)
         const logMessage = `Image ${imageCount} transmission time: ${transmissionTime}ms\n`
         
-        await appendToLog(logMessage)
+        appendToLog(logMessage)
         console.log(`WebSocket: ${logMessage}`)
+        
+        imageCount++;
         
         if (imageCount === 10) {
           const totalTime = Date.now() - startTime
-          const totalMessage = `\nTotal transfer time (including 1s delays): ${totalTime}ms\nSum of transmission times: ${totalTransmissionTime}ms\n\n`
-          await appendToLog(totalMessage)
+          const totalMessage = `\nTotal transfer time: ${totalTime}ms\nSum of transmission times: ${totalTransmissionTime}ms\n\n`
+          appendToLog(totalMessage)
           console.log(`WebSocket: ${totalMessage}`)
         }
-        
-        imageCount++
       } catch (error) {
         console.error('WebSocket: Error receiving image:', error)
       }

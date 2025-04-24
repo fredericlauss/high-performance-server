@@ -28,7 +28,6 @@ export const setupWebSocket = async (
           socket.send(JSON.stringify(data))
           console.log(`WebSocket: Image ${i + 1} sent`)
           imagesSent++
-          await new Promise(resolve => setTimeout(resolve, 1000))
         }
         
         const totalTime = Date.now() - globalStartTime

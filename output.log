@@ -1,33 +1,33 @@
 === WebSocket performance test: 10 images transfer ===
 
-Image 1 transmission time: 76ms
-Image 2 transmission time: 46ms
-Image 3 transmission time: 50ms
-Image 4 transmission time: 84ms
-Image 5 transmission time: 42ms
-Image 6 transmission time: 44ms
-Image 7 transmission time: 47ms
-Image 8 transmission time: 44ms
-Image 9 transmission time: 58ms
-Image 10 transmission time: 56ms
+Image 0 transmission time: 670ms
+Image 1 transmission time: 699ms
+Image 2 transmission time: 688ms
+Image 3 transmission time: 660ms
+Image 4 transmission time: 629ms
+Image 5 transmission time: 595ms
+Image 6 transmission time: 554ms
+Image 7 transmission time: 519ms
+Image 8 transmission time: 501ms
+Image 9 transmission time: 491ms
 
-Total transfer time (including 1s delays): 9568ms
-Sum of transmission times: 547ms
+Total transfer time: 1116ms
+Sum of transmission times: 6006ms
 
 
 === gRPC performance test: 10 images transfer ===
 
-Image 1 transmission time: 28ms
-Image 2 transmission time: 13ms
-Image 3 transmission time: 9ms
-Image 4 transmission time: 12ms
-Image 5 transmission time: 11ms
-Image 6 transmission time: 15ms
-Image 7 transmission time: 12ms
-Image 8 transmission time: 13ms
-Image 9 transmission time: 10ms
-Image 10 transmission time: 11ms
+Image 1 transmission time: 23ms
+Image 2 transmission time: 44ms
+Image 3 transmission time: 55ms
+Image 4 transmission time: 66ms
+Image 5 transmission time: 78ms
+Image 6 transmission time: 87ms
+Image 7 transmission time: 99ms
+Image 8 transmission time: 111ms
+Image 9 transmission time: 125ms
+Image 10 transmission time: 138ms
 
-Total transfer time (including 1s delays): 9035ms
-Sum of transmission times: 134ms
+Total transfer time: 228ms
+Sum of transmission times: 826ms
 

@@ -51,7 +51,6 @@ export const setupGrpc = () => {
           
           stream.write(imageData)
           console.log(`gRPC: Sent image ${i}`)
-          await new Promise(resolve => setTimeout(resolve, 1000))
         }
         
         const totalTime = Date.now() - globalStartTime

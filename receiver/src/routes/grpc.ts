@@ -12,24 +12,27 @@ export const setupGrpc = async () => {
     transferImages: async (call: grpc.ServerDuplexStream<ImageData, Ack>) => {
       console.log('gRPC: New transmitter connected')
       let imageCount = 0
-      let startTime = Date.now()
+      let startTime = 0
       let totalTransmissionTime = 0
-      
-      await appendToLog('\n=== gRPC performance test: 10 images transfer ===\n\n')
-      
+            
       try {
         call.on('data', async (imageData: ImageData) => {
+          if (imageCount === 0) {
+            startTime = Date.now()
+            appendToLog('\n=== gRPC performance test: 10 images transfer ===\n\n')
+          }
+          
           const receiveTime = Date.now()
           const transmissionTime = receiveTime - imageData.timestamp
           totalTransmissionTime += transmissionTime
           imageCount++
           
           try {
-            const outputPath = path.join(__dirname, '../../received/grpc', `image-${imageData.timestamp}.jpg`)
+            const outputPath = path.join(__dirname, '../../received/grpc', `image-${imageCount}.jpg`)
             await writeFile(outputPath, imageData.image)
             
             const logMessage = `Image ${imageCount} transmission time: ${transmissionTime}ms\n`
-            await appendToLog(logMessage)
+            appendToLog(logMessage)
             console.log(`gRPC: ${logMessage}`)
             
             const ack: Ack = {
@@ -39,10 +42,12 @@ export const setupGrpc = async () => {
             call.write(ack)
 
             if (imageCount === 10) {
-              const totalTime = Date.now() - startTime
-              const totalMessage = `\nTotal transfer time (including 1s delays): ${totalTime}ms\nSum of transmission times: ${totalTransmissionTime}ms\n\n`
-              await appendToLog(totalMessage)
-              console.log(`gRPC: ${totalMessage}`)
+              setTimeout(() => {
+                const totalTime = Date.now() - startTime
+                const totalMessage = `\nTotal transfer time: ${totalTime}ms\nSum of transmission times: ${totalTransmissionTime}ms\n\n`
+                appendToLog(totalMessage)
+                console.log(`gRPC: ${totalMessage}`)
+              }, 100)
             }
           } catch (error) {
             console.error('gRPC: Error processing image:', error)
