@@ -10,7 +10,7 @@ For both websocket and gRPC, it measures three key metrics: the transmission tim
 
 
 > [!NOTE]
-> While this implementation intentionally maintains similar patterns for both protocols to ensure testing fairness, we acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either WebSocket or gRPC.
+> While this implementation intentionally maintains similar patterns for both protocols to ensure testing fairness, i acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either WebSocket or gRPC.
 
 ## 2. Getting started
 ### Technologies
@@ -77,6 +77,8 @@ Sum of transmission times: 373ms
 - More complex to implement  
 - Requires HTTP/2, not natively supported in browsers without a proxy server
 ### Performance results
+> [!WARNING]
+> The one-second delay between transfers provides precise measurements for a single image transfer, but doesn't showcase gRPC's parallel streaming capabilities.
 ```bash
 === gRPC performance test: 10 images transfer ===
 
@@ -110,9 +112,11 @@ Sum of transmission times: 69ms
 The performance results show that gRPC is more efficient in raw data transmission. However, this advantage shouldn't drive alone the choice between these protocols, as each serves distinct purposes :
 
 WebSocket are good for web-based real-time applications. Its simple implementation and broad browser support make it ideal for direct real-time client-server communication.
+
 usecases : live chat applications, collaborative editing tools, or real-time dashboards
 
 gRPC is better suited for system-to-system communications. Its strict contract-based interactions and high performance make it valuable for backend services.
+
 usecases: microservices architectures, internal system communications, and scenarios requiring strict contract-based interactions
 
 ## 7. Resources
