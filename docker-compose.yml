@@ -1,6 +1,6 @@
 services:
   transmitter:
-    container_name: websocket-transmitter
+    container_name: transmitter
     build:
       context: ./transmitter
     environment:
@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
 
   receiver:
-    container_name: websocket-receiver
+    container_name: receiver
     build:
       context: ./receiver
     environment:
