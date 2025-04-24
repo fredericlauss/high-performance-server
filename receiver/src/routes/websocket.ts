@@ -32,7 +32,7 @@ export const setupWebSocket = () => {
         const outputPath = path.join(__dirname, '../../received/websocket', `image-${imageCount}.jpg`)
         
         await writeFile(outputPath, imageBuffer)
-        const logMessage = `Image ${imageCount} transmission time: ${transmissionTime}ms\n`
+        const logMessage = `Image ${imageCount + 1} transmission time: ${transmissionTime}ms\n`
         
         appendToLog(logMessage)
         console.log(`WebSocket: ${logMessage}`)

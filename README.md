@@ -50,19 +50,19 @@ docker compose up
 ```bash
 === WebSocket performance test: 10 images transfer ===
 
-Image 0 transmission time: 670ms
-Image 1 transmission time: 699ms
-Image 2 transmission time: 688ms
-Image 3 transmission time: 660ms
-Image 4 transmission time: 629ms
-Image 5 transmission time: 595ms
-Image 6 transmission time: 554ms
-Image 7 transmission time: 519ms
-Image 8 transmission time: 501ms
-Image 9 transmission time: 491ms
+Image 1 transmission time: 656ms
+Image 2 transmission time: 629ms
+Image 3 transmission time: 646ms
+Image 4 transmission time: 662ms
+Image 5 transmission time: 638ms
+Image 6 transmission time: 608ms
+Image 7 transmission time: 580ms
+Image 8 transmission time: 574ms
+Image 9 transmission time: 576ms
+Image 10 transmission time: 574ms
 
-Total transfer time: 1116ms
-Sum of transmission times: 6006ms
+Total transfer time: 1234ms
+Sum of transmission times: 6143ms
 ```
 
 ## 4. gRPC
@@ -78,19 +78,19 @@ Sum of transmission times: 6006ms
 ```bash
 === gRPC performance test: 10 images transfer ===
 
-Image 1 transmission time: 23ms
-Image 2 transmission time: 44ms
-Image 3 transmission time: 55ms
-Image 4 transmission time: 66ms
-Image 5 transmission time: 78ms
-Image 6 transmission time: 87ms
-Image 7 transmission time: 99ms
-Image 8 transmission time: 111ms
-Image 9 transmission time: 125ms
-Image 10 transmission time: 138ms
+Image 2 transmission time: 49ms
+Image 2 transmission time: 41ms
+Image 3 transmission time: 80ms
+Image 4 transmission time: 94ms
+Image 5 transmission time: 111ms
+Image 6 transmission time: 130ms
+Image 7 transmission time: 152ms
+Image 8 transmission time: 173ms
+Image 9 transmission time: 198ms
+Image 10 transmission time: 221ms
 
-Total transfer time: 228ms
-Sum of transmission times: 826ms
+Total transfer time: 296ms
+Sum of transmission times: 1249ms
 ```
 
 ## 5. Comparative summary
