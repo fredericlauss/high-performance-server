@@ -19,19 +19,25 @@ While this implementation intentionally maintains similar patterns for both prot
 ### Installation
 1. Clone the repository
 2. Duplicate the `.env.example` file to a new `.env` file
+```bash
+cp .env.example .env
+```
 3. (Optional) Install dependencies inside each service directory
 ```bash
 npm install
 ```
-
 ### Run the project
 ```bash
 docker compose up
 ```
-To run in detached mode:
-```bash
-docker compose up -d
-```
+### Technologies
+- [Node.js](https://nodejs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Fastify](https://www.fastify.io/)
+- [gRPC](https://grpc.io/)
+- [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+- [Docker](https://www.docker.com/)
+
 
 ## 3. WebSocket
 ### Advantages
