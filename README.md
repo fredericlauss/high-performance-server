@@ -226,7 +226,7 @@ Total transfer time: 419ms
 
 The performance results show that gRPC is more efficient in raw data transmission. However, this advantage shouldn't drive alone the choice between these technologies, as each serves distinct purposes :
 
-WebSockets are good for web-based real-time applications. Its simple implementation and broad browser support make it ideal for direct web real-time client-server communication.
+WebSockets are good for web-based real-time applications. Its simple implementation and broad browser support make it ideal for direct web real-time client-server communication if moderate latency is acceptable.
 
 usecases : live chat applications, queue indicators or real-time dashboards
 
