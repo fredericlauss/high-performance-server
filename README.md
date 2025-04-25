@@ -96,7 +96,120 @@ Total transfer time: 203ms
 ```
 
 > [!NOTE]
-> Here we can see that gRPC handles concurrent requests more efficiently. The total transfer time is significantly lower due to HTTP/2 so it outperforms the WebSocket implementation ( in individual transmissions also ).
+> Here we can see that gRPC handles concurrent requests more efficiently. The total transfer time is significantly lower due to HTTP/2 so it outperforms the WebSocket implementation ( in individual transmissions also ). We can futher see this in the 50 images transfer test below.
+
+```bash
+=== WebSocket performance test: 50 images transfer ===
+
+Image transmission time: 1665ms
+Image transmission time: 1715ms
+Image transmission time: 1711ms
+Image transmission time: 1700ms
+Image transmission time: 1696ms
+Image transmission time: 1689ms
+Image transmission time: 1681ms
+Image transmission time: 1687ms
+Image transmission time: 1674ms
+Image transmission time: 1670ms
+Image transmission time: 1665ms
+Image transmission time: 1660ms
+Image transmission time: 1652ms
+Image transmission time: 1652ms
+Image transmission time: 1634ms
+Image transmission time: 1642ms
+Image transmission time: 1646ms
+Image transmission time: 1636ms
+Image transmission time: 1633ms
+Image transmission time: 1623ms
+Image transmission time: 1630ms
+Image transmission time: 1620ms
+Image transmission time: 1615ms
+Image transmission time: 1617ms
+Image transmission time: 1601ms
+Image transmission time: 1587ms
+Image transmission time: 1573ms
+Image transmission time: 1560ms
+Image transmission time: 1545ms
+Image transmission time: 1533ms
+Image transmission time: 1518ms
+Image transmission time: 1509ms
+Image transmission time: 1499ms
+Image transmission time: 1490ms
+Image transmission time: 1460ms
+Image transmission time: 1479ms
+Image transmission time: 1449ms
+Image transmission time: 1429ms
+Image transmission time: 1428ms
+Image transmission time: 1417ms
+Image transmission time: 1399ms
+Image transmission time: 1411ms
+Image transmission time: 1392ms
+Image transmission time: 1385ms
+Image transmission time: 1380ms
+Image transmission time: 1371ms
+Image transmission time: 1360ms
+Image transmission time: 1350ms
+Image transmission time: 1342ms
+Image transmission time: 1335ms
+
+Total transfer time: 2984ms
+
+
+=== gRPC performance test: 50 images transfer ===
+
+Image transmission time: 22ms
+Image transmission time: 31ms
+Image transmission time: 36ms
+Image transmission time: 41ms
+Image transmission time: 48ms
+Image transmission time: 55ms
+Image transmission time: 73ms
+Image transmission time: 79ms
+Image transmission time: 88ms
+Image transmission time: 97ms
+Image transmission time: 105ms
+Image transmission time: 112ms
+Image transmission time: 119ms
+Image transmission time: 126ms
+Image transmission time: 134ms
+Image transmission time: 141ms
+Image transmission time: 147ms
+Image transmission time: 152ms
+Image transmission time: 158ms
+Image transmission time: 164ms
+Image transmission time: 174ms
+Image transmission time: 178ms
+Image transmission time: 183ms
+Image transmission time: 187ms
+Image transmission time: 192ms
+Image transmission time: 196ms
+Image transmission time: 202ms
+Image transmission time: 212ms
+Image transmission time: 217ms
+Image transmission time: 222ms
+Image transmission time: 228ms
+Image transmission time: 233ms
+Image transmission time: 240ms
+Image transmission time: 244ms
+Image transmission time: 251ms
+Image transmission time: 256ms
+Image transmission time: 261ms
+Image transmission time: 265ms
+Image transmission time: 274ms
+Image transmission time: 279ms
+Image transmission time: 284ms
+Image transmission time: 289ms
+Image transmission time: 294ms
+Image transmission time: 299ms
+Image transmission time: 305ms
+Image transmission time: 312ms
+Image transmission time: 319ms
+Image transmission time: 324ms
+Image transmission time: 330ms
+Image transmission time: 333ms
+
+Total transfer time: 419ms
+```
 
 ## 5. Comparative summary
 
