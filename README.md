@@ -76,7 +76,7 @@ Total transfer time: 663ms
 ### Disadvantages
 - Binary format harder to debug 
 - More complex to implement : higher initial setup complexity
-- Requires HTTP/2, not natively supported in browsers without a proxy server
+- Requires HTTP/2, not natively supported in browsers
 ### Performance results
 ```bash
 === gRPC performance test: 10 images transfer ===
@@ -96,7 +96,7 @@ Total transfer time: 203ms
 ```
 
 > [!NOTE]
-> Here we can see that gRPC handles concurrent requests more efficiently. The total transfer time is significantly lower due to HTTP/2 so it outperforms the WebSocket implementation ( in individual transmissions also ). We can futher see this in the 50 images transfer test below.
+> Here we can see that gRPC handles concurrent requests more efficiently. The total transfer time is significantly lower due to HTTP/2 multiplexing and Protocol Buffers binary serialization format so it outperforms the WebSocket implementation ( in individual transmissions also ). We can futher see this in the 50 images transfer test below.
 
 ```bash
 === WebSocket performance test: 50 images transfer ===
@@ -239,7 +239,7 @@ usecases: microservices architectures or internal system communications
 > - No tracking of CPU and memory usage
 > - Tests performed in a local environment
 > - Implementation prioritized comparison consistency over protocol-specific optimizations
-> - Test focused on image transfer, which may not represent all use cases
+> - Test focused on image transfer, which may not represent the best use case for gRPC or websocket
 
 ## 7. Resources
 
