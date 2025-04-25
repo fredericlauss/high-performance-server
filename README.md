@@ -6,8 +6,8 @@ This project explores the differences between websocket and gRPC through a pract
 
 For both websocket and gRPC, it measures three key metrics: the transmission time for each image and the total transfer time.
 
-- **Image details**: The test uses a 533KB PNG image
-- **Network environment**: All tests were performed in local
+- **Image details**: 533KB, png
+- **Network environment**: local
 
 > [!NOTE]
 > While this implementation intentionally maintains similar patterns for both technologies to ensure testing fairness, i acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either WebSocket or gRPC.
@@ -47,7 +47,7 @@ docker compose up
 - Native support in browsers
 ### Disadvantages
 - May be blocked by firewalls  
-- Less efficient for binary compared to gRPC  
+- Less efficient compared to gRPC  
 - No built-in type safety : no enforced schema
 - Connection management requires additional handling : connection is always open
 ### Performance results
