@@ -114,11 +114,11 @@ The performance results show that gRPC is more efficient in raw data transmissio
 
 WebSockets are good for web-based real-time applications. Its simple implementation and broad browser support make it ideal for direct web real-time client-server communication.
 
-usecases : live chat applications, collaborative editing tools, or real-time dashboards
+usecases : live chat applications, queue indicators or real-time dashboards
 
 gRPC is better suited for system-to-system communications. Its strict contract-based interactions and high performance make it valuable for backend services.
 
-usecases: microservices architectures, internal system communications, and scenarios requiring strict contract-based interactions
+usecases: microservices architectures or internal system communications
 
 ## 7. Resources
 
