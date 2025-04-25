@@ -40,12 +40,14 @@ docker compose up
 ## 3. WebSocket
 ### Advantages
 - Bidirectional real-time communication  
-- Lightweight and easy to implement  
-- Flexible payloads (text, JSON, binary blobs)
+- Easy to implement  
+- Flexible payloads : text, JSON, binary blobs, etc
+- Native support in browsers
 ### Disadvantages
-- May be blocked  
+- May be blocked by firewalls  
 - Less efficient for binary compared to gRPC  
-- No built-in type safety (no enforced schema)
+- No built-in type safety : no enforced schema
+- Connection management requires additional handling : connection is always open
 ### Performance results
 ```bash
 === WebSocket performance test: 10 images transfer ===
@@ -71,7 +73,7 @@ Total transfer time: 663ms
 - Full-duplex streaming supported  
 ### Disadvantages
 - Binary format harder to debug 
-- More complex to implement  
+- More complex to implement : higher initial setup complexity
 - Requires HTTP/2, not natively supported in browsers without a proxy server
 ### Performance results
 ```bash
@@ -92,7 +94,7 @@ Total transfer time: 203ms
 ```
 
 > [!NOTE]
-> Here we can see that gRPC handles concurrent requests more efficiently. Each image is sent as a separate message but processed in parallel, which explains why the total transfer time is significantly lower than the sum of individual transmission times and outperforms the WebSocket implementation, in individual transmissions also.
+> Here we can see that gRPC handles concurrent requests more efficiently. The total transfer time is significantly lower due to HTTP/2 so it outperforms the WebSocket implementation ( in individual transmissions also ).
 
 ## 5. Comparative summary
 
