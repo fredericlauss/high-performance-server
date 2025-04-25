@@ -91,6 +91,9 @@ Image transmission time: 123ms
 Total transfer time: 203ms
 ```
 
+> [!NOTE]
+> Here we can see that gRPC handles concurrent requests more efficiently. Each image is sent as a separate message but processed in parallel, which explains why the total transfer time is significantly lower than the sum of individual transmission times and outperforms the WebSocket implementation, in individual transmissions also.
+
 ## 5. Comparative summary
 
 | Criterion               | websocket               | gRPC                          |
