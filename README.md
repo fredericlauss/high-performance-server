@@ -49,7 +49,7 @@ docker compose up
 - May be blocked by firewalls  
 - Less efficient compared to gRPC  
 - No built-in type safety : no enforced schema
-- Connection management requires additional handling : connection is always open
+- Requires manual connection state management
 ### Performance results
 ```bash
 === WebSocket performance test: 10 images transfer ===
@@ -70,7 +70,7 @@ Total transfer time: 663ms
 
 ## 4. gRPC
 ### Advantages
-- High performance 
+- High performance : through HTTP/2 and protocol buffers
 - Strongly typed contract 
 - Full-duplex streaming supported  
 ### Disadvantages
@@ -107,6 +107,7 @@ Total transfer time: 203ms
 | Type safety            | ❌                      | ✅ Strongly typed             |
 | Browser compatibility  | ✅ Native                | ❌ Not natively supported    |
 | Ease of implementation | ✅ Simple                | ⚠️ More complex               |
+| Connection management  | ⚠️ Manual handling      | ✅ Built-in connection pooling|
 
 ## 6. Conclusion and Recommended Use Cases
 
@@ -119,6 +120,13 @@ usecases : live chat applications, queue indicators or real-time dashboards
 gRPC is better suited for system-to-system communications. Its strict contract-based interactions and high performance make it valuable for backend services.
 
 usecases: microservices architectures or internal system communications
+
+> [!WARNING]
+> **Limitations of this comparison:**
+> - No tracking of CPU and memory usage
+> - Tests performed in a local environment
+> - Implementation prioritized comparison consistency over protocol-specific optimizations
+> - Test focused on image transfer, which may not represent all use cases
 
 ## 7. Resources
 
