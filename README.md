@@ -2,13 +2,15 @@
 
 ## 1. What's this project about ?
 
-This project explores the differences between websocket and gRPC through a practical implementation. The system consists of two servers: a transmitter and a receiver. The transmitter server sends the same image ten times to the receiver, first using websocket protocol, then using gRPC. The receiver processes these images and captures performance metrics for each protocol.
+This project explores the differences between websocket and gRPC through a practical implementation. The system consists of two servers: a transmitter and a receiver. The transmitter server sends the same image ten times to the receiver, first using websocket protocol, then using gRPC. The receiver processes these images and captures performance metrics for each technology in the `output.log` file.
 
 For both websocket and gRPC, it measures three key metrics: the transmission time for each image and the total transfer time.
 
+- **Image details**: The test uses a 533KB PNG image
+- **Network environment**: All tests were performed in local
 
 > [!NOTE]
-> While this implementation intentionally maintains similar patterns for both protocols to ensure testing fairness, i acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either WebSocket or gRPC.
+> While this implementation intentionally maintains similar patterns for both technologies to ensure testing fairness, i acknowledge that the chosen approach might not fully leverage the unique advantages or use cases of each method. This decision was made to provide a consistent baseline for comparison, even though it may not represent the optimal implementation for either WebSocket or gRPC.
 
 ## 2. Getting started
 ### Technologies
@@ -103,14 +105,14 @@ Total transfer time: 203ms
 | Real-time bidirectional| ✅                      | ✅                            |
 | Performance            | ⚠️ Medium               | ✅ Excellent        |
 | Type safety            | ❌                      | ✅ Strongly typed             |
-| Browser compatibility  | ✅ Native                | ❌ Requires HTTP/2    |
+| Browser compatibility  | ✅ Native                | ❌ Not natively supported    |
 | Ease of implementation | ✅ Simple                | ⚠️ More complex               |
 
 ## 6. Conclusion and Recommended Use Cases
 
-The performance results show that gRPC is more efficient in raw data transmission. However, this advantage shouldn't drive alone the choice between these protocols, as each serves distinct purposes :
+The performance results show that gRPC is more efficient in raw data transmission. However, this advantage shouldn't drive alone the choice between these technologies, as each serves distinct purposes :
 
-WebSocket are good for web-based real-time applications. Its simple implementation and broad browser support make it ideal for direct real-time client-server communication.
+WebSockets are good for web-based real-time applications. Its simple implementation and broad browser support make it ideal for direct web real-time client-server communication.
 
 usecases : live chat applications, collaborative editing tools, or real-time dashboards
 
