@@ -98,7 +98,7 @@ Total transfer time: 203ms
 | Real-time bidirectional| ✅                      | ✅                            |
 | Performance            | ⚠️ Medium               | ✅ Excellent        |
 | Type safety            | ❌                      | ✅ Strongly typed             |
-| Browser compatibility  | ✅ Native                | ❌ Requires HTTP/2 + proxy    |
+| Browser compatibility  | ✅ Native                | ❌ Requires HTTP/2    |
 | Ease of implementation | ✅ Simple                | ⚠️ More complex               |
 
 ## 6. Conclusion and Recommended Use Cases
