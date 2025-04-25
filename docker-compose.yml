@@ -5,11 +5,9 @@ services:
       context: ./transmitter
     environment:
       - PORT=${TRANSMITTER_PORT}
-      - GRPC_PORT=${TRANSMITTER_GRPC_PORT}
       - RECEIVER_GRPC_URL=receiver:${RECEIVER_GRPC_PORT}
     ports:
       - "${TRANSMITTER_PORT}:${TRANSMITTER_PORT}"
-      - "${TRANSMITTER_GRPC_PORT}:${TRANSMITTER_GRPC_PORT}"
     restart: unless-stopped
 
   receiver:
